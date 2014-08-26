@@ -22,6 +22,17 @@ typedef void (^AndFailWithErrorMethod)(NSError *error);
 - (WithHeadersMethod)withHeaders;
 - (AndBodyMethod)withBody;
 - (AndReturnMethod)andReturn;
+
+/** 
+ * This method is added by Moneytree -- 2014/08/26
+ * because some other third party framework has `andReturn` defined
+ * as C macros which fucks up the method call above `-andReturn`.
+ *
+ * Another justification is, this method is more redible.
+ * what it does just call the method above.
+ */
+- (AndReturnMethod)andReturnWithStatusCode;
+
 - (AndReturnRawResponseMethod)andReturnRawResponse;
 - (AndFailWithErrorMethod)andFailWithError;
 @end
