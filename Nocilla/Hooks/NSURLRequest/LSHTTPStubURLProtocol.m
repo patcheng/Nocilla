@@ -3,11 +3,29 @@
 #import "NSURLRequest+LSHTTPRequest.h"
 #import "LSStubRequest.h"
 #import "NSURLRequest+DSL.h"
+#import "LSHTTPRequestDSLRepresentation.h"
 
 @implementation LSHTTPStubURLProtocol
 
 + (BOOL)canInitWithRequest:(NSURLRequest *)request {
-    return [@[ @"http", @"https" ] containsObject:request.URL.scheme];
+    if( ![@[ @"http", @"https" ] containsObject:request.URL.scheme] ) {
+        return NO;
+    }
+	if ([LSNocilla sharedInstance].catchAllRequests) {
+		return YES;
+	}
+	
+	@try {
+		if ([[LSNocilla sharedInstance] responseForRequest:request] != nil) {
+			return YES;
+		}
+	}
+	@catch (NSException *exception) {
+		// there is no stub request, return no.
+		return NO;
+	}
+	
+	return NO;
 }
 
 + (NSURLRequest *)canonicalRequestForRequest:(NSURLRequest *)request {

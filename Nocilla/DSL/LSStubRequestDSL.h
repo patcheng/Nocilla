@@ -11,6 +11,8 @@
 
 typedef LSStubRequestDSL *(^WithHeaderMethod)(NSString *, NSString *);
 typedef LSStubRequestDSL *(^WithHeadersMethod)(NSDictionary *);
+typedef LSStubRequestDSL *(^WithCookieMethod)(NSString *, NSString *);
+typedef LSStubRequestDSL *(^WithCookiesMethod)(NSDictionary *);
 typedef LSStubRequestDSL *(^AndBodyMethod)(id<LSMatcheable>);
 typedef LSStubResponseDSL *(^AndReturnMethod)(NSInteger);
 typedef LSStubResponseDSL *(^AndReturnRawResponseMethod)(NSData *rawResponseData);
@@ -21,8 +23,11 @@ typedef void (^AndFailWithErrorMethod)(NSError *error);
 
 @property (nonatomic, strong, readonly) WithHeaderMethod withHeader;
 @property (nonatomic, strong, readonly) WithHeadersMethod withHeaders;
+@property (nonatomic, strong, readonly) WithCookieMethod withCookie;
+@property (nonatomic, strong, readonly) WithCookiesMethod withCookies;
 @property (nonatomic, strong, readonly) AndBodyMethod withBody;
 @property (nonatomic, strong, readonly) AndReturnMethod andReturn;
+@property (nonatomic, strong, readonly) AndReturnMethod andReturnWithStatusCode;
 @property (nonatomic, strong, readonly) AndReturnRawResponseMethod andReturnRawResponse;
 @property (nonatomic, strong, readonly) AndFailWithErrorMethod andFailWithError;
 
