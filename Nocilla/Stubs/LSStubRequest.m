@@ -97,7 +97,7 @@
     return [self.urlMatcher matches:[request.url absoluteString]];
 }
 
--(BOOL) processCookieString:(NSString*)headerValue block:(BOOL (^)(NSString *header, NSString *value))block
+-(void)processCookieString:(NSString*)headerValue block:(BOOL (^)(NSString *header, NSString *value))block
 {
 	NSArray *cookieStrings = [headerValue componentsSeparatedByString:@"; "];
 
@@ -109,7 +109,7 @@
 			NSString *value = [cookieString substringFromIndex:range.location];
 			
 			if (! block(name, value)) {
-				return NO;
+				return;
 			}
 		}
 		
